@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'model/transaction.dart';
+import 'models/transaction.dart';
+import 'components/transaction_item.dart';
+import 'components/new_transaction_form.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,19 +23,32 @@ class MyHomePage extends StatelessWidget {
   final List<Transaction> transactions = [
     Transaction(
       id: 't1',
-      title: 'Resto',
+      title: 'J.Co',
       amount: 17.99,
       date: DateTime.now(),
       category: 'Eating Out',
     ),
     Transaction(
       id: 't2',
-      title: 'Lidl',
+      title: 'Hero',
       amount: 12.04,
       date: DateTime.now(),
       category: 'Grocery',
     ),
   ];
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          child: NewTransactionForm(),
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +59,18 @@ class MyHomePage extends StatelessWidget {
       body: Container(
         child: Column(
           children: transactions.map((tx) {
-            return Card(
-              child: Text(tx.title),
+            return TransactionItem(
+              title: tx.title,
+              amount: '€${tx.amount.toStringAsFixed(2)}',
+              category: tx.category,
             );
           }).toList(),
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }
