@@ -19,7 +19,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transactions = [
     Transaction(
       id: 't1',
@@ -37,13 +42,28 @@ class MyHomePage extends StatelessWidget {
     ),
   ];
 
+  void _addNewTransaction(String txTitle, double txAmount, String txCategory) {
+    Transaction tx = Transaction(
+      id: DateTime.now().toString(),
+      title: txTitle,
+      amount: txAmount,
+      date: DateTime.now(),
+      category: txCategory,
+    );
+    setState(() {
+      transactions.add(tx);
+    });
+  }
+
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
       context: ctx,
       builder: (_) {
         return GestureDetector(
           onTap: () {},
-          child: NewTransactionForm(),
+          child: NewTransactionForm(
+            addTx: _addNewTransaction,
+          ),
           behavior: HitTestBehavior.opaque,
         );
       },
