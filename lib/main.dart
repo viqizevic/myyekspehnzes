@@ -29,25 +29,26 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
       id: 't1',
       title: 'J.Co',
-      amount: 17.99,
+      amount: 2.79,
       date: DateTime.now(),
       category: 'Eating Out',
     ),
     Transaction(
       id: 't2',
-      title: 'Hero',
-      amount: 12.04,
+      title: 'Crepes',
+      amount: 2.94,
       date: DateTime.now(),
       category: 'Grocery',
     ),
   ];
 
-  void _addNewTransaction(String txTitle, double txAmount, String txCategory) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, String txCategory, DateTime chosenDate) {
     Transaction tx = Transaction(
       id: DateTime.now().toString(),
       title: txTitle,
       amount: txAmount,
-      date: DateTime.now(),
+      date: chosenDate,
       category: txCategory,
     );
     setState(() {
@@ -83,6 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: tx.title,
               amount: '€${tx.amount.toStringAsFixed(2)}',
               category: tx.category,
+              date: tx.date,
             );
           }).toList(),
         ),
