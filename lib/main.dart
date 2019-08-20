@@ -25,6 +25,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final String currency = '€';
+  final double initialAmount = 100.0;
   final List<Transaction> transactions = [
     Transaction(
       id: 't1',
@@ -41,6 +43,20 @@ class _MyHomePageState extends State<MyHomePage> {
       category: 'Grocery',
     ),
   ];
+
+  List<TransactionItem> getListOfTransactionItems() {
+    double currentAmount = initialAmount;
+    return transactions.map((tx) {
+      currentAmount -= tx.amount;
+      return TransactionItem(
+        title: tx.title,
+        amount: '${currency}${tx.amount.toStringAsFixed(2)}',
+        category: tx.category,
+        date: tx.date,
+        balance: '${currency}${currentAmount.toStringAsFixed(2)}',
+      );
+    }).toList();
+  }
 
   void _addNewTransaction(
       String txTitle, double txAmount, String txCategory, DateTime chosenDate) {
@@ -79,14 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         child: Column(
-          children: transactions.map((tx) {
-            return TransactionItem(
-              title: tx.title,
-              amount: '€${tx.amount.toStringAsFixed(2)}',
-              category: tx.category,
-              date: tx.date,
-            );
-          }).toList(),
+          children: getListOfTransactionItems(),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

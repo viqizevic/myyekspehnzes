@@ -3,12 +3,19 @@ import 'package:myy_expenses/constants.dart';
 import 'package:intl/intl.dart';
 
 class TransactionItem extends StatefulWidget {
-  TransactionItem({this.title, this.amount, this.category, this.date});
+  TransactionItem({
+    this.title,
+    this.amount,
+    this.category,
+    this.date,
+    this.balance,
+  });
 
   final String title;
   final String amount;
   final String category;
   final DateTime date;
+  final String balance;
 
   @override
   _TransactionItemState createState() => _TransactionItemState();
@@ -23,21 +30,6 @@ class _TransactionItemState extends State<TransactionItem> {
         child: Container(
           child: Row(
             children: <Widget>[
-              CircleAvatar(
-                radius: 35,
-                child: Padding(
-                  padding: const EdgeInsets.all(7.0),
-                  child: FittedBox(
-                    child: Text(
-                      widget.amount,
-                      style: kTransactionTitleAmountStyle,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 15.0,
-              ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,9 +49,28 @@ class _TransactionItemState extends State<TransactionItem> {
                           DateFormat.yMMMd().format(widget.date),
                           style: kTransactionCategoryTextStyle,
                         ),
+                        Text(
+                          widget.balance,
+                          style: kTransactionCategoryTextStyle,
+                        ),
                       ],
                     ),
                   ],
+                ),
+              ),
+              SizedBox(
+                width: 15.0,
+              ),
+              CircleAvatar(
+                radius: 35,
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: FittedBox(
+                    child: Text(
+                      widget.amount,
+                      style: kTransactionTitleAmountStyle,
+                    ),
+                  ),
                 ),
               ),
             ],

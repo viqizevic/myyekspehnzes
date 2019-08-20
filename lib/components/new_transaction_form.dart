@@ -108,7 +108,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
                   child: Text(
-                    'Choose Date',
+                    'Choose another Date',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
